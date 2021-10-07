@@ -5,7 +5,7 @@ import {
   FormContainer,
   FormContent,
 } from "./style";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Tooltip } from "@mui/material";
 
 const emptyFruit = {
   name: "",
@@ -23,10 +23,12 @@ const FruitForm = ({ fruits, setFruits }) => {
   const handleOnSubmit = (event) => {
     event.preventDefault();
 
-    const quantity = parseInt(fruit.quantity);
-    const price = parseFloat(fruit.price);
+    if (fruit.name.trim() !== "") {
+      const quantity = parseInt(fruit.quantity);
+      const price = parseFloat(fruit.price);
 
-    setFruits([...fruits, { ...fruit, quantity, price }]);
+      setFruits([...fruits, { ...fruit, quantity, price }]);
+    }
   };
 
   const handleCleanForm = (event) => {
@@ -59,14 +61,16 @@ const FruitForm = ({ fruits, setFruits }) => {
             onChange={handleNameChange}
           />
 
-          <TextField
-            className="inputs"
-            type="number"
-            label="Quantidade"
-            size="small"
-            value={fruit.quantity}
-            onChange={handleQuantityChange}
-          />
+          <Tooltip title="Valor negativo representa a saída da fruta" arrow>
+            <TextField
+              className="inputs"
+              type="number"
+              label="Quantidade"
+              size="small"
+              value={fruit.quantity}
+              onChange={handleQuantityChange}
+            />
+          </Tooltip>
 
           <TextField
             className="inputs"
