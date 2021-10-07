@@ -27,7 +27,14 @@ const FruitForm = ({ fruits, setFruits }) => {
       const quantity = parseInt(fruit.quantity);
       const price = parseFloat(fruit.price);
 
-      setFruits([...fruits, { ...fruit, quantity, price }]);
+      setFruits([
+        ...fruits,
+        {
+          ...fruit,
+          quantity: Number.isNaN(quantity) ? 0 : quantity,
+          price: Number.isNaN(price) ? 0 : price,
+        },
+      ]);
     }
   };
 
